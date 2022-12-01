@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonNetMapper", "JsonNetMapper\JsonNetMapper.csproj", "{24582C78-E3D8-4766-925E-BA180F03E96E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonNetMapper.TestConsole", "JsonNetMapper.TestConsole\JsonNetMapper.TestConsole.csproj", "{9037ADFE-0440-403F-A099-828CB7BE051D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24582C78-E3D8-4766-925E-BA180F03E96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24582C78-E3D8-4766-925E-BA180F03E96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24582C78-E3D8-4766-925E-BA180F03E96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24582C78-E3D8-4766-925E-BA180F03E96E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9037ADFE-0440-403F-A099-828CB7BE051D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9037ADFE-0440-403F-A099-828CB7BE051D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9037ADFE-0440-403F-A099-828CB7BE051D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9037ADFE-0440-403F-A099-828CB7BE051D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A358C66D-201D-4EB0-BBFF-911B881C1B41}
+	EndGlobalSection
+EndGlobal
