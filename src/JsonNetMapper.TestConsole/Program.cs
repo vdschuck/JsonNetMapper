@@ -51,6 +51,6 @@ var sourceJson = @"{
 }";
 
 var jsonNetMapper = new JsonMapper(configJson, sourceJson);
-var response = jsonNetMapper.BuildNewJson();
+jsonNetMapper.BuildNewJson();
 
-Console.WriteLine(response);
+Console.WriteLine(jsonNetMapper.Response);

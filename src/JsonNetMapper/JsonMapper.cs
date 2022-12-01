@@ -4,6 +4,8 @@ namespace JsonNetMapper;
 
 public class JsonMapper
 {
+    public string Response { get; private set; }
+
     private readonly JObject _sourceJson;
     private readonly JObject _configJson;
     private readonly JObject _responseJson;
@@ -11,12 +13,14 @@ public class JsonMapper
 
     public JsonMapper(string configJson, string sourceJson)
     {
+        Response = string.Empty;
+
         _sourceJson = JObject.Parse(sourceJson);
         _configJson = JObject.Parse(configJson);
         _responseJson = new JObject();
     }
 
-    public string BuildNewJson()
+    public void BuildNewJson()
     {
         foreach (var jsonConfig in _configJson)
         {
@@ -93,7 +97,7 @@ public class JsonMapper
             }
         }
 
-        return _responseJson.ToString();
+        Response = _responseJson.ToString();
     }
 
     private void AddJObjectInResponseJson(string objKey, JObject objValue)
