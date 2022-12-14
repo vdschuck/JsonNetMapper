@@ -10,6 +10,8 @@ public class JsonMapper
     private readonly JObject _configJson;
     private readonly JObject _responseJson;
     private const string SELECTOR = "selector";
+    private const string VALUE_TYPE = "type";
+    private const string VALUE_FORMAT = "format";
 
     public JsonMapper(string configJson, string sourceJson)
     {
@@ -27,10 +29,12 @@ public class JsonMapper
             if (jsonConfig.Value != null)
             {
                 var selector = jsonConfig.Value.Value<string>(SELECTOR);
+                var valueType = jsonConfig.Value.Value<string>(VALUE_TYPE) ?? string.Empty;
+                var valueFormat = jsonConfig.Value.Value<string>(VALUE_FORMAT) ?? string.Empty;
 
                 if (selector is not null)
                 {
-                    _responseJson[jsonConfig.Key] = GetValueFromSourceJson(selector);
+                    _responseJson[jsonConfig.Key] = GetValueFromSourceJson(selector, valueType, valueFormat);
                 }
                 else
                 {
@@ -54,6 +58,8 @@ public class JsonMapper
                             if (jProperty is not null)
                             {
                                 selector = jProperty.Value.Value<string>(SELECTOR);
+                                valueType = jProperty.Value.Value<string>(VALUE_TYPE) ?? string.Empty;
+                                valueFormat = jProperty.Value.Value<string>(VALUE_FORMAT) ?? string.Empty;
 
                                 if (selector is null)
                                 {
@@ -61,9 +67,8 @@ public class JsonMapper
                                     childrens.AddRange(child);
                                 }
                                 else
-                                {
-
-                                    var sourceValue = GetValueFromSourceJson(selector);
+                                {                                    
+                                    var sourceValue = GetValueFromSourceJson(selector, valueType, valueFormat);
                                     var path = jProperty.Path.Split(".");
                                     var firstPath = path[0];
 
@@ -119,7 +124,7 @@ public class JsonMapper
         }
     }
 
-    private JToken? GetValueFromSourceJson(string selector)
+    private JToken? GetValueFromSourceJson(string selector, string valueType, string valueFormat)
     {
         JToken? sourceValue;
 
@@ -129,9 +134,33 @@ public class JsonMapper
         }
         else
         {
-            sourceValue = _sourceJson.GetValue(selector);
+            sourceValue = _sourceJson.GetValue(selector);            
         }
 
+        FormatValues(ref sourceValue, valueType, valueFormat);
+
         return sourceValue;
+    }
+
+    private static void FormatValues(ref JToken? value, string valueType, string valueFormat)
+    {
+        switch (valueType)
+        {
+            case "bool":
+                value ??= false;
+                break;
+            case "string":
+                value ??= string.Empty;
+                break;
+            case "integer":
+                value ??= 0;
+                break;
+            case "decimal":
+                value = value is null ? 0.0 : string.Format(valueFormat, value.ToString());
+                break;
+            case "date":
+                value = value is null ? string.Empty : value.ToObject<DateTime>().ToString(valueFormat);
+                break;
+        };
     }
 }

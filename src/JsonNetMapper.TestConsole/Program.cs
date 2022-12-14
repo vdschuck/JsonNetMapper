@@ -5,18 +5,34 @@ using JsonNetMapper;
 var configJson = @"{
     'stores': {
         'physical': {            
-            'selector': 'Stores'
+            'selector': 'Stores',
         },
         'virtual': {
-            'selector': 'Virtual'
+            'selector': 'Virtual',
+            'type': 'string',
+            'format': '',
         }
     },
     'title': {
-        'selector': 'Manufacturers[0].Name'
+        'selector': 'Manufacturers[0].Name',
+        'type': 'string',
+        'format': '',
     },
     'products': {
-        'selector': 'Manufacturers[1].Products'
+        'selector': 'Manufacturers[1].Products',
+        'type': 'object',
+        'format': '',
     },
+    'value': {
+        'selector': 'Manufacturers[0].Products[0].Price',
+        'type': 'decimal',
+        'format': '{0:0,0.00}',
+    },
+    'date': {
+        'selector': 'Manufacturers[0].Date',
+        'type': 'date',
+        'format': 'dd/MM/yyyy',
+    }
 }";
 
 var sourceJson = @"{
@@ -26,15 +42,17 @@ var sourceJson = @"{
   ],
   'Manufacturers': [
     {
+      'Date': '2022-05-12',
       'Name': 'Acme Co',
       'Products': [
         {
           'Name': 'Anvil',
-          'Price': 50
+          'Price': 5015.11
         }
       ]
     },
     {
+      'Date': '2022-05-30',
       'Name': 'Contoso',
       'Products': [
         {
