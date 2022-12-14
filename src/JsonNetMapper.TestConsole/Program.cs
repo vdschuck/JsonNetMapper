@@ -32,6 +32,14 @@ var configJson = @"{
         'selector': 'Manufacturers[0].Date',
         'type': 'date',
         'format': 'dd/MM/yyyy',
+    },
+    'paymentsType': {
+        'selector': 'Payments',
+        'type': 'list'
+    },
+    'onSale': {
+        'selector': 'OnSale',
+        'type': 'object'
     }
 }";
 

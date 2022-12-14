@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace JsonNetMapper;
 
@@ -160,6 +161,12 @@ public class JsonMapper
                 break;
             case "date":
                 value = value is null ? string.Empty : value.ToObject<DateTime>().ToString(valueFormat);
+                break;
+            case "list":
+                value ??= new JArray();
+                break;
+            case "object":
+                value ??= new JObject();
                 break;
         };
     }
