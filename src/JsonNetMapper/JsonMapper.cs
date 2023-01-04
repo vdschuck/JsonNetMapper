@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 
 namespace JsonNetMapper;
 
@@ -7,6 +6,7 @@ public class JsonMapper
 {
     public string Response { get; private set; }
 
+    private static bool _formatValues;
     private readonly JObject _sourceJson;
     private readonly JObject _configJson;
     private readonly JObject _responseJson;
@@ -14,13 +14,14 @@ public class JsonMapper
     private const string VALUE_TYPE = "type";
     private const string VALUE_FORMAT = "format";
 
-    public JsonMapper(string configJson, string sourceJson)
+    public JsonMapper(string configJson, string sourceJson, bool formatValues = true)
     {
         Response = string.Empty;
 
         _sourceJson = JObject.Parse(sourceJson);
         _configJson = JObject.Parse(configJson);
         _responseJson = new JObject();
+        _formatValues = formatValues;
     }
 
     public void BuildNewJson()
@@ -157,10 +158,12 @@ public class JsonMapper
                 value ??= 0;
                 break;
             case "decimal":
-                value = value is null ? 0.0 : string.Format(valueFormat, value.ToString());
+                value ??= 0.0;
+                if (_formatValues) value = string.Format(valueFormat, value.ToString());
                 break;
             case "date":
-                value = value is null ? string.Empty : value.ToObject<DateTime>().ToString(valueFormat);
+                value ??= string.Empty;
+                if (_formatValues) value = value.ToObject<DateTime>().ToString(valueFormat);
                 break;
             case "list":
                 value ??= new JArray();

@@ -80,3 +80,8 @@ var jsonNetMapper = new JsonMapper(configJson, sourceJson);
 jsonNetMapper.BuildNewJson();
 
 Console.WriteLine(jsonNetMapper.Response);
+
+var jsonNetMapperPlainValues = new JsonMapper(configJson, sourceJson, false);
+jsonNetMapperPlainValues.BuildNewJson();
+
+Console.WriteLine(jsonNetMapperPlainValues.Response);
